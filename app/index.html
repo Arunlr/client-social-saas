@@ -3,67 +3,30 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Client Social SaaS — simple social publishing automation for agencies and creators." />
+  <meta name="description" content="Client Social — social publishing automation for agencies and creators." />
   <title>Client Social SaaS</title>
   <link rel="stylesheet" href="./styles.css" />
 </head>
 <body>
-  <header class="topbar">
-    <a class="brand" href="#">Client Social</a>
-    <nav>
-      <a href="#dashboard">Dashboard</a>
-      <a href="#setup">Setup</a>
-      <a href="#history">History</a>
-    </nav>
-  </header>
-
+  <header class="topbar"><a class="brand" href="#">Client Social</a><nav><a href="#dashboard">Dashboard</a><a href="#setup">Setup</a><a href="#history">History</a></nav><button id="logout" class="text-button" hidden>Log out</button></header>
   <main class="shell">
-    <section class="hero">
-      <div>
-        <p class="eyebrow">SOCIAL PUBLISHING AUTOMATION</p>
-        <h1>Publish client content without the busywork.</h1>
-        <p class="hero-copy">A simple control center for content intake, automated publishing, and delivery status.</p>
-        <a class="button primary" href="#setup">Set up your workspace</a>
-      </div>
-      <div class="hero-card">
-        <span class="status-dot"></span>
-        <strong>Automation ready</strong>
-        <p>Make is the publishing engine. Your client dashboard stays simple.</p>
+    <section id="auth" class="auth section">
+      <div><p class="eyebrow">CLIENT PORTAL</p><h1>Run your social publishing service from one place.</h1><p class="hero-copy">Create a workspace, queue content, and let Make handle publishing.</p></div>
+      <div class="auth-card"><div class="tabs"><button id="login-tab" class="tab active">Log in</button><button id="signup-tab" class="tab">Create account</button></div>
+        <form id="login-form"><input name="email" type="email" placeholder="Email" required><input name="password" type="password" placeholder="Password" required><button class="button primary" type="submit">Log in</button></form>
+        <form id="signup-form" hidden><input name="email" type="email" placeholder="Email" required><input name="password" type="password" minlength="8" placeholder="Password (8+ characters)" required><input name="display_name" placeholder="Your name"><input name="client_name" placeholder="Workspace name"><button class="button primary" type="submit">Create workspace</button></form>
+        <p id="auth-message" class="muted"></p>
       </div>
     </section>
 
-    <section id="dashboard" class="section">
-      <div class="section-heading">
-        <div><p class="eyebrow">OVERVIEW</p><h2>Publishing dashboard</h2></div>
-        <span class="pill">MVP</span>
-      </div>
-      <div class="stats">
-        <article><span>Queued</span><strong>0</strong><small>Waiting to publish</small></article>
-        <article><span>Published</span><strong>0</strong><small>This month</small></article>
-        <article><span>Failed</span><strong>0</strong><small>Needs attention</small></article>
-        <article><span>Plan usage</span><strong>0%</strong><small>Free MVP allowance</small></article>
-      </div>
-    </section>
-
-    <section id="setup" class="section setup-grid">
-      <div>
-        <p class="eyebrow">ONBOARDING</p>
-        <h2>Connect your workspace</h2>
-        <p class="muted">The production version will keep credentials server-side. This prototype contains no real OAuth secrets.</p>
-      </div>
-      <div class="connections">
-        <div class="connection"><div><strong>Google Drive</strong><small>Content source</small></div><span class="pill pending">Not connected</span></div>
-        <div class="connection"><div><strong>YouTube</strong><small>Video publishing</small></div><span class="pill pending">Not connected</span></div>
-        <div class="connection"><div><strong>Instagram</strong><small>Reel publishing</small></div><span class="pill pending">Not connected</span></div>
-      </div>
-    </section>
-
-    <section id="history" class="section">
-      <div class="section-heading"><div><p class="eyebrow">ACTIVITY</p><h2>Publishing history</h2></div></div>
-      <div class="empty"><strong>No publishing jobs yet</strong><p>Once a client uploads content and the automation runs, jobs will appear here.</p></div>
-    </section>
+    <div id="portal" hidden>
+      <section id="dashboard" class="section"><div class="section-heading"><div><p class="eyebrow">OVERVIEW</p><h2>Publishing dashboard</h2></div><span class="pill">FREE MVP</span></div><div class="stats"><article><span>Queued</span><strong id="queued-count">0</strong><small>Waiting to publish</small></article><article><span>Published</span><strong id="published-count">0</strong><small>Current workspace</small></article><article><span>Failed</span><strong id="failed-count">0</strong><small>Needs attention</small></article><article><span>Plan</span><strong>Free</strong><small>10 jobs / month</small></article></div></section>
+      <section id="setup" class="section setup-grid"><div><p class="eyebrow">WORKSPACE</p><h2>Connected services</h2><p class="muted">Credentials stay server-side. Connection OAuth will be enabled in the next integration stage.</p></div><div class="connections"><div class="connection" data-provider="youtube"><div><strong>YouTube</strong><small>Video publishing</small></div><span class="pill">Not connected</span></div><div class="connection" data-provider="instagram"><div><strong>Instagram</strong><small>Reel publishing</small></div><span class="pill">Not connected</span></div></div></section>
+      <section class="section"><div class="section-heading"><div><p class="eyebrow">PUBLISH</p><h2>Queue content</h2></div></div><form id="job-form" class="job-form"><input name="source_file_url" type="url" placeholder="Media URL (e.g. Drive file URL)" required><input name="title" placeholder="Post title"><textarea name="description" placeholder="Description / caption"></textarea><div class="checks"><label><input name="youtube" type="checkbox" checked> YouTube</label><label><input name="instagram" type="checkbox" checked> Instagram</label></div><button class="button primary" type="submit">Queue publishing job</button><p id="job-message" class="muted"></p></form></section>
+      <section id="history" class="section"><div class="section-heading"><div><p class="eyebrow">ACTIVITY</p><h2>Publishing history</h2></div></div><div id="job-list"><div class="empty"><strong>No publishing jobs yet</strong><p>Your queued jobs will appear here.</p></div></div></section>
+    </div>
   </main>
-
-  <footer><span>Client Social SaaS</span><span>Built for a $0-first MVP</span></footer>
+  <footer><span>Client Social SaaS</span><span>$0-first MVP</span></footer>
+  <script src="./app.js"></script>
 </body>
 </html>
