@@ -1,0 +1,28 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "client-social-saas",
+  "main": "worker.js",
+  "compatibility_date": "2026-09-01",
+  "compatibility_flags": ["nodejs_compat"],
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "client-social-saas",
+      "database_id": "57fe308b-bda5-4226-ad10-5f8dd4c92bab",
+      "migrations_dir": "migrations"
+    }
+  ],
+  "assets": {
+    "directory": "../app",
+    "binding": "ASSETS",
+    "run_worker_first": ["/api/*"],
+    "not_found_handling": "single-page-application"
+  },
+  "vars": {
+    "APP_BASE_URL": "https://client-social-saas.<your-subdomain>.workers.dev"
+  },
+  "observability": {
+    "enabled": true,
+    "head_sampling_rate": 1
+  }
+}
