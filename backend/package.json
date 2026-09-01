@@ -1,0 +1,13 @@
+{
+  "name": "client-social-saas-api",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Zero-budget client social publishing SaaS API",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
