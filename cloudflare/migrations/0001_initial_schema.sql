@@ -1,0 +1,14 @@
+-- Initial D1 schema for the Cloudflare Worker deployment.
+CREATE TABLE IF NOT EXISTS users (id TEXT PRIMARY KEY,email TEXT NOT NULL UNIQUE,display_name TEXT,password_hash TEXT NOT NULL,created_at TEXT NOT NULL);
+CREATE TABLE IF NOT EXISTS clients (id TEXT PRIMARY KEY,name TEXT NOT NULL,owner_user_id TEXT NOT NULL,status TEXT NOT NULL DEFAULT 'active',created_at TEXT NOT NULL);
+CREATE TABLE IF NOT EXISTS memberships (id TEXT PRIMARY KEY,client_id TEXT NOT NULL,user_id TEXT NOT NULL,role TEXT NOT NULL DEFAULT 'member',UNIQUE(client_id,user_id));
+CREATE TABLE IF NOT EXISTS subscriptions (id TEXT PRIMARY KEY,client_id TEXT NOT NULL UNIQUE,plan_id TEXT NOT NULL,status TEXT NOT NULL DEFAULT 'active');
+CREATE TABLE IF NOT EXISTS plans (id TEXT PRIMARY KEY,name TEXT NOT NULL UNIQUE,monthly_job_limit INTEGER NOT NULL,enabled INTEGER NOT NULL DEFAULT 1);
+CREATE TABLE IF NOT EXISTS sessions (id TEXT PRIMARY KEY,token_hash TEXT NOT NULL UNIQUE,user_id TEXT NOT NULL,expires_at TEXT NOT NULL);
+CREATE TABLE IF NOT EXISTS publishing_jobs (id TEXT PRIMARY KEY,client_id TEXT NOT NULL,source_file_url TEXT NOT NULL,title TEXT,description TEXT,status TEXT NOT NULL DEFAULT 'queued',targets_json TEXT NOT NULL,requested_at TEXT NOT NULL,started_at TEXT,completed_at TEXT,error_message TEXT);
+CREATE TABLE IF NOT EXISTS publishing_results (id TEXT PRIMARY KEY,job_id TEXT NOT NULL,provider TEXT NOT NULL,external_post_id TEXT,external_url TEXT,status TEXT NOT NULL,published_at TEXT);
+CREATE INDEX IF NOT EXISTS idx_memberships_user ON memberships(user_id);
+CREATE INDEX IF NOT EXISTS idx_jobs_client_requested ON publishing_jobs(client_id,requested_at DESC);
+CREATE INDEX IF NOT EXISTS idx_results_job ON publishing_results(job_id);
+INSERT OR IGNORE INTO plans(id,name,monthly_job_limit,enabled) VALUES('free','Free',10,1);
+INSERT OR IGNORE INTO plans(id,name,monthly_job_limit,enabled) VALUES('starter','Starter',50,1);
