@@ -10,6 +10,9 @@ build/
 .env
 .env.*
 !.env.example
+.dev.vars
+.wrangler/
+!backend/.env.example
 
 # Logs
 *.log
