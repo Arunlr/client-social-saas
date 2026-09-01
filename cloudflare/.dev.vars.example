@@ -1,0 +1,4 @@
+# Copy to .dev.vars for local development. Do not commit .dev.vars.
+# Use non-production values locally.
+MAKE_WEBHOOK_URL=
+MAKE_CALLBACK_SECRET=
