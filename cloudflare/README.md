@@ -15,10 +15,11 @@ The account does not yet have a `workers.dev` subdomain. Open **Workers & Pages*
 ```sh
 cd cloudflare
 npm install
+copy .dev.vars.example .dev.vars
 npm run dev
 ```
 
-Use a local `.dev.vars` file for development-only secrets. It is ignored by Git.
+Put development-only Make values in `.dev.vars`; it is ignored by Git. The committed `.dev.vars.example` contains names only and no secrets.
 
 ## Production deployment
 
