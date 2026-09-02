@@ -19,7 +19,7 @@
     "not_found_handling": "single-page-application"
   },
   "vars": {
-    "APP_BASE_URL": "https://client-social-saas.<your-subdomain>.workers.dev"
+    "APP_BASE_URL": "https://client-social-saas.marutilrrudrakshi.workers.dev"
   },
   "observability": {
     "enabled": true,
