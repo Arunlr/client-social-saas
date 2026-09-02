@@ -8,7 +8,7 @@ function inlineAsset(pathname) {
   if (!asset) return null;
   const binary = atob(asset.body);
   const bytes = Uint8Array.from(binary, (character) => character.charCodeAt(0));
-  return new Response(bytes, { headers: { "content-type": asset.type, "cache-control": "public, max-age=300" } });
+  return new Response(bytes, { headers: { "content-type": asset.type, "cache-control": "no-store" } });
 }
 
 function json(body, status = 200) {
